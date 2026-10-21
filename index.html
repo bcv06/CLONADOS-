@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clonados: la empresa anti-suplantación de Latinoamérica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --paper: #FFFFFF;
+  --ink: #000000;
+  --muted: #5A5A5A;
+  --line: #E3E3E3;
+  --surface: #F5F3F2;
+  --red: #D0021B;
+  --red-deep: #8E0012;
+  --on-red: #FFFFFF;
+  --night: #000000;
+  --on-night: #FFFFFF;
+  --night-muted: #B9B9B9;
+  --focus: #1C64D9;
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", "Times New Roman", serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0C0C0C;
+    --ink: #F4F4F4;
+    --muted: #A9A9A9;
+    --line: #2B2B2B;
+    --surface: #171717;
+    --red: #FF2B40;
+    --red-deep: #B3001B;
+    --night: #000000;
+    --night-muted: #A9A9A9;
+    --focus: #7EB0FF;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0C0C0C;
+  --ink: #F4F4F4;
+  --muted: #A9A9A9;
+  --line: #2B2B2B;
+  --surface: #171717;
+  --red: #FF2B40;
+  --red-deep: #B3001B;
+  --night: #000000;
+  --night-muted: #A9A9A9;
+  --focus: #7EB0FF;
+}
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 60px); }
+*, *::before, *::after { box-sizing: inherit; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--night); }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+/* Header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--night); color: var(--on-night); }
+.top-inner { max-width: 1240px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; gap: 20px; }
+.brand { font-family: var(--display); font-weight: 900; font-size: 22px; letter-spacing: 0.04em; white-space: nowrap; }
+.nav { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; margin-left: auto; }
+.nav::-webkit-scrollbar { display: none; }
+.nav button { border: 0; background: transparent; color: var(--night-muted); padding: 8px 10px; font-size: 14px; white-space: nowrap; border-bottom: 2px solid transparent; }
+.nav button:hover { color: var(--on-night); }
+.nav button[aria-current="true"] { color: var(--on-night); border-bottom-color: var(--red); }
+
+/* Cover */
+.cover { background: var(--red); color: var(--on-red); position: relative; overflow: hidden; }
+.cover-inner { max-width: 1240px; margin: 0 auto; padding: 28px 24px 48px; position: relative; }
+.issue { display: flex; justify-content: space-between; font-size: 13px; letter-spacing: 0.06em; border-bottom: 1px solid rgba(255,255,255,.55); padding-bottom: 10px; }
+.masthead { font-family: var(--display); font-weight: 900; font-size: clamp(76px, 17vw, 236px); line-height: .82; letter-spacing: -0.035em; margin: 18px 0 0; text-transform: uppercase; }
+.cover-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; margin-top: 26px; align-items: end; }
+.coverline { border-top: 1px solid rgba(255,255,255,.55); padding: 14px 0 0; margin-bottom: 18px; }
+.coverline .big { font-family: var(--display); font-weight: 900; font-size: clamp(42px, 6.4vw, 84px); line-height: .95; letter-spacing: -0.02em; display: block; }
+.coverline .small { display: block; font-size: 17px; margin-top: 6px; max-width: 34ch; }
+.cover h1 { font-family: var(--display); font-weight: 400; font-size: clamp(26px, 3.2vw, 40px); line-height: 1.12; margin: 0; max-width: 20ch; }
+.cover p.dek { font-size: 18px; max-width: 46ch; margin: 16px 0 0; }
+.cover-actions { margin-top: 24px; display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-white { border: 2px solid var(--on-red); background: var(--on-red); color: #000; padding: 11px 20px; font-weight: 700; font-size: 15px; letter-spacing: .02em; }
+.btn-ghost { border: 2px solid var(--on-red); background: transparent; color: var(--on-red); padding: 11px 20px; font-weight: 700; font-size: 15px; letter-spacing: .02em; }
+.btn-white:hover, .btn-ghost:hover { opacity: .85; }
+
+/* Wrapper */
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+section.block { padding: 96px 0 24px; }
+.kicker { font-family: var(--display); font-style: italic; font-size: 20px; color: var(--red); margin: 0 0 10px; }
+h2 { font-family: var(--display); font-weight: 900; font-size: clamp(38px, 5.6vw, 76px); line-height: .98; letter-spacing: -0.025em; margin: 0; max-width: 16ch; }
+h3 { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1.15; margin: 0; }
+.lead { font-size: 20px; color: var(--muted); max-width: 58ch; margin: 18px 0 0; }
+.note { font-size: 14px; color: var(--muted); }
+
+/* Fear: the numbers */
+.fear { background: var(--night); color: var(--on-night); padding: 96px 0 72px; margin-top: 0; }
+.fear .kicker { color: var(--red); }
+.fear h2 { color: var(--on-night); max-width: 14ch; }
+.fear .lead { color: var(--night-muted); }
+.figures { margin-top: 56px; border-top: 1px solid #333; }
+.figure { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: end; padding: 34px 0; border-bottom: 1px solid #333; }
+.figure .num { font-family: var(--display); font-weight: 900; color: var(--red); font-size: clamp(54px, 10.5vw, 152px); line-height: .86; letter-spacing: -0.04em; word-break: break-word; font-variant-numeric: lining-nums; }
+.figure p { margin: 0; font-size: 20px; line-height: 1.4; max-width: 30ch; }
+.figure p strong { color: var(--on-night); }
+.figure .src { display: block; margin-top: 10px; font-size: 13px; color: var(--night-muted); }
+.figure .src a { color: var(--night-muted); }
+.verdict-line { margin-top: 48px; font-family: var(--display); font-size: clamp(26px, 3.4vw, 44px); line-height: 1.15; max-width: 26ch; }
+
+/* Game */
+.game-wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: start; margin-top: 36px; }
+.choices { display: grid; gap: 14px; }
+.site { width: 100%; text-align: left; border: 2px solid var(--line); background: var(--paper); padding: 0; transition: border-color .2s; }
+.site:hover { border-color: var(--ink); }
+.site-bar { display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: var(--surface); font-size: 15px; letter-spacing: .01em; }
+.lock { width: 10px; height: 12px; border: 2px solid var(--muted); border-radius: 2px; position: relative; top: 2px; flex: none; }
+.lock::before { content: ""; position: absolute; width: 8px; height: 6px; border: 2px solid var(--muted); border-bottom: 0; border-radius: 5px 5px 0 0; left: -1px; top: -7px; }
+.site-body { padding: 16px; display: grid; gap: 8px; }
+.bank { font-family: var(--display); font-weight: 900; font-size: 22px; }
+.field { height: 30px; background: var(--surface); border: 1px solid var(--line); }
+.btn-fake { height: 32px; background: var(--ink); width: 55%; }
+.site[data-state="right"] { border-color: var(--red); }
+.site[data-state="wrong"] { border-color: var(--ink); }
+.verdict { display: none; border-top: 4px solid var(--red); padding: 18px 0 0; margin-top: 18px; }
+.verdict.show { display: block; }
+.verdict strong { font-family: var(--display); font-size: 26px; font-weight: 900; display: block; line-height: 1.1; margin-bottom: 8px; }
+.verdict ul { margin: 10px 0 0; padding-left: 20px; }
+.verdict li { margin: 4px 0; }
+.reset { margin-top: 14px; border: 2px solid var(--ink); background: transparent; padding: 8px 16px; font-weight: 600; font-size: 14px; }
+
+/* Engine */
+.engine { margin-top: 40px; display: grid; grid-template-columns: 300px 1fr; gap: 40px; }
+.threats { display: grid; gap: 0; align-content: start; border-top: 2px solid var(--ink); }
+.threat { text-align: left; border: 0; border-bottom: 1px solid var(--line); background: transparent; padding: 16px 0; }
+.threat strong { display: block; font-family: var(--display); font-size: 22px; font-weight: 700; }
+.threat span { font-size: 15px; color: var(--muted); }
+.threat[aria-pressed="true"] strong { color: var(--red); }
+.threat[aria-pressed="true"] { border-bottom: 2px solid var(--red); }
+.steps { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.step { display: grid; grid-template-columns: 72px 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); transition: background .25s; }
+.step .n { font-family: var(--display); font-weight: 900; font-size: 52px; line-height: .9; color: var(--line); transition: color .25s; }
+.step.active .n { color: var(--red); }
+.step h3 { font-size: 22px; }
+.step p { margin: 4px 0 0; color: var(--muted); max-width: 60ch; }
+.engine-actions { margin-top: 18px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.btn-red { border: 0; background: var(--red); color: #fff; padding: 12px 22px; font-weight: 700; letter-spacing: .02em; }
+.btn-red:hover { background: var(--red-deep); }
+
+/* Payers */
+.payers { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0; border-top: 2px solid var(--ink); }
+.payer { padding: 20px 20px 24px 0; border-bottom: 1px solid var(--line); }
+.payer + .payer { padding-left: 20px; border-left: 1px solid var(--line); }
+.payer h3 { font-size: 22px; }
+.payer p { margin: 8px 0 0; font-size: 15px; color: var(--muted); }
+.payer .how { margin-top: 12px; font-weight: 700; color: var(--red); font-size: 15px; }
+
+/* Simulator */
+.sim { margin-top: 40px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: start; }
+.sliders { display: grid; gap: 0; border-top: 2px solid var(--ink); }
+.slider { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.slider-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.slider-head label { font-weight: 600; }
+.slider-head output { font-family: var(--display); font-weight: 700; font-size: 20px; }
+.slider input[type=range] { width: 100%; margin-top: 10px; accent-color: var(--red); }
+.slider .price { font-size: 14px; color: var(--muted); margin-top: 2px; }
+.result { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 64px); background: var(--red); color: #fff; padding: 28px; }
+.result .label { font-size: 15px; opacity: .85; }
+.result .big { font-family: var(--display); font-weight: 900; font-size: clamp(44px, 6vw, 76px); line-height: .92; margin: 8px 0 6px; letter-spacing: -0.03em; }
+.result .sub { font-size: 16px; opacity: .9; }
+.bar { position: relative; height: 10px; background: rgba(0,0,0,.28); margin-top: 24px; overflow: hidden; }
+.bar-fill { position: absolute; inset: 0 auto 0 0; background: #fff; transition: width .3s; }
+.bar-ticks { display: flex; justify-content: space-between; font-size: 13px; opacity: .85; margin-top: 6px; gap: 10px; }
+.result .msg { margin-top: 18px; font-size: 17px; }
+.result .fine { margin-top: 12px; font-size: 13px; opacity: .8; }
+
+/* Competitors */
+.filters { margin-top: 32px; display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { border: 2px solid var(--ink); background: transparent; padding: 7px 14px; font-size: 14px; font-weight: 600; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.table-wrap { margin-top: 18px; overflow-x: auto; border-top: 2px solid var(--ink); }
+table { width: 100%; border-collapse: collapse; min-width: 760px; font-size: 15px; }
+th, td { text-align: left; padding: 14px 12px 14px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 14px; }
+td.name { font-family: var(--display); font-weight: 700; font-size: 19px; white-space: nowrap; }
+td.cap { font-family: var(--display); font-weight: 700; white-space: nowrap; }
+.tag { display: inline-block; padding: 2px 10px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.tag.yes { background: var(--ink); color: var(--paper); }
+.tag.no { border: 1px solid var(--line); color: var(--muted); }
+.pull { margin-top: 36px; font-family: var(--display); font-size: clamp(26px, 3.2vw, 40px); line-height: 1.15; max-width: 30ch; border-left: 6px solid var(--red); padding-left: 22px; }
+
+/* Laws */
+.laws { margin-top: 40px; border-top: 2px solid var(--ink); }
+.law { display: grid; grid-template-columns: 200px 1fr 200px; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.law .where { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1.1; }
+.law p { margin: 0; color: var(--muted); }
+.law .hours { font-family: var(--display); font-weight: 900; font-size: 46px; line-height: .9; color: var(--red); text-align: right; }
+.law .status { display: block; font-family: var(--body); font-size: 13px; font-weight: 600; color: var(--muted); margin-top: 6px; }
+
+/* Funding */
+.funding { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.costs ul { list-style: none; margin: 14px 0 0; padding: 0; border-top: 2px solid var(--ink); }
+.costs li { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.costs li span:last-child { font-family: var(--display); font-weight: 700; white-space: nowrap; }
+.costs li.total span { font-weight: 900; font-size: 20px; }
+.sources h3 { margin-bottom: 14px; }
+.source { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.source:first-of-type { border-top: 2px solid var(--ink); }
+.source input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--red); flex: none; }
+.source label strong { display: block; font-size: 16px; }
+.covered { margin-top: 18px; background: var(--ink); color: var(--paper); padding: 18px; font-size: 16px; }
+.covered b { font-family: var(--display); font-size: 30px; font-weight: 900; display: block; line-height: 1; margin-bottom: 6px; }
+
+/* Checklist */
+.checklist { margin: 32px 0 0; list-style: none; padding: 0; max-width: 820px; border-top: 2px solid var(--ink); }
+.checklist li { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.checklist input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--red); flex: none; }
+.checklist input:checked + label { color: var(--muted); text-decoration: line-through; }
+.progress { margin-top: 14px; font-family: var(--display); font-size: 20px; }
+
+footer { background: var(--night); color: var(--on-night); margin-top: 96px; }
+.foot { max-width: 1240px; margin: 0 auto; padding: 40px 24px 56px; }
+.foot .brand { font-size: 44px; }
+.foot h3 { font-size: 18px; margin-top: 18px; }
+.foot ul { margin: 12px 0 0; padding-left: 18px; columns: 2; column-gap: 40px; font-size: 14px; color: var(--night-muted); }
+.foot li { margin: 5px 0; break-inside: avoid; }
+
+@media (max-width: 880px) {
+  .cover-grid, .game-wrap, .engine, .sim, .funding { grid-template-columns: 1fr; }
+  .figure { grid-template-columns: 1fr; gap: 12px; }
+  .result { position: static; }
+  .law { grid-template-columns: 1fr; gap: 6px; }
+  .law .hours { text-align: left; }
+  .payer + .payer { padding-left: 0; border-left: 0; }
+  .foot ul { columns: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">CLONADOS</div>
+    <nav class="nav" aria-label="Secciones">
+      <button data-go="portada">Portada</button>
+      <button data-go="cifras">Las cifras</button>
+      <button data-go="prueba">La prueba</button>
+      <button data-go="motor">Cómo funciona</button>
+      <button data-go="clientes">Quién paga</button>
+      <button data-go="simulador">Simulador</button>
+      <button data-go="competencia">Competencia</button>
+      <button data-go="leyes">Leyes</button>
+      <button data-go="inversion">Inversión</button>
+      <button data-go="pasos">Próximos pasos</button>
+    </nav>
+  </div>
+</header>
+
+<!-- COVER -->
+<section id="portada" class="cover" aria-labelledby="t-cover">
+  <div class="cover-inner">
+    <div class="issue"><span>Edición Latinoamérica</span><span>Octubre 2026</span></div>
+    <div class="masthead" aria-hidden="true">Clonados</div>
+    <div class="cover-grid">
+      <div>
+        <h1 id="t-cover">Tu cara, tu voz y tu banco ya pueden copiarse en minutos.</h1>
+        <p class="dek">En Latinoamérica nadie se dedica a encontrar esos clones y bajarlos. Esta es la empresa que lo hará.</p>
+        <div class="cover-actions">
+          <button class="btn-white" data-go="cifras">Ver las cifras</button>
+          <button class="btn-ghost" data-go="simulador">Simular el negocio</button>
+        </div>
+      </div>
+      <div>
+        <div class="coverline"><span class="big">$243 mil millones</span><span class="small">en fraudes bancarios reclamados en Chile en un solo año</span></div>
+        <div class="coverline"><span class="big">+201%</span><span class="small">ataques con deepfakes en Latinoamérica en doce meses</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEAR -->
+<section id="cifras" class="fear" aria-labelledby="t-cifras">
+  <div class="wrap">
+    <p class="kicker">Las cifras</p>
+    <h2 id="t-cifras">Esto ya está pasando. Y se está acelerando.</h2>
+    <p class="lead">Ninguno de estos números es una proyección. Todos ya ocurrieron.</p>
+
+    <div class="figures">
+      <div class="figure">
+        <div class="num" data-count="243000000000" data-prefix="$" data-format="full">$243.000.000.000</div>
+        <p><strong>Pesos en fraudes bancarios reclamados en Chile en 2023.</strong> El doble que el año anterior.<span class="src"><a href="https://www.biobiochile.cl/noticias/economia/tu-bolsillo/2025/07/14/reclamos-al-alza-sernac-lanza-agenda-antifraude-y-oficiara-a-todas-las-instituciones-financieras.shtml" target="_blank" rel="noopener">BioBioChile, citando al Sernac</a></span></p>
+      </div>
+      <div class="figure">
+        <div class="num" data-count="6.5" data-suffix="×" data-format="dec">6,5×</div>
+        <p><strong>Más fraude en medios de pago que en Europa.</strong> Chile tiene una de las tasas más altas.<span class="src"><a href="https://www.latercera.com/etiqueta/fraudes/" target="_blank" rel="noopener">La Tercera, informe de la Asociación de Bancos</a></span></p>
+      </div>
+      <div class="figure">
+        <div class="num" data-count="500" data-prefix="+" data-suffix="%" data-format="int">+500%</div>
+        <p><strong>Crecieron los ataques con deepfakes en México en un año.</strong> En toda Latinoamérica, +201%.<span class="src"><a href="https://sumsub.com/blog/guides-reports/fraude-de-identidad-en-latinoamerica-2025-2026/" target="_blank" rel="noopener">Sumsub, Informe de fraude de identidad 2025-2026</a></span></p>
+      </div>
+      <div class="figure">
+        <div class="num" data-count="148" data-prefix="+" data-suffix="%" data-format="int">+148%</div>
+        <p><strong>Subió la tasa de fraude de identidad en Chile.</strong><span class="src"><a href="https://mercado.com.ar/tecnologia/fraudes-con-identidades-generadas-por-ia-crecen-180-en-latinoamerica-segun-sumsub" target="_blank" rel="noopener">Sumsub, vía Mercado</a></span></p>
+      </div>
+      <div class="figure">
+        <div class="num" data-count="5" data-prefix="Cada " data-suffix=" min" data-format="int">Cada 5 min</div>
+        <p><strong>Hubo un intento de fraude con deepfake en 2024.</strong> Hoy representan el 40% del fraude biométrico.<span class="src"><a href="https://www.realitydefender.com/insights/bny-samsung-next-and-fusion-fund-invest-in-reality-defender" target="_blank" rel="noopener">Reality Defender, citando a Entrust</a></span></p>
+      </div>
+      <div class="figure">
+        <div class="num" data-count="70" data-suffix=" minutos" data-format="int">70 minutos</div>
+        <p><strong>Basta para fabricar un candidato falso listo para una entrevista en video,</strong> sin conocimientos técnicos.<span class="src"><a href="https://westernverify.com/resources/blog/the-candidate-isnt-real-ai-fake-applicants-have-arrived-and-small-employers-are-not-exempt" target="_blank" rel="noopener">Western Verify, citando a Palo Alto Networks</a></span></p>
+      </div>
+    </div>
+    <p class="verdict-line">Sitios falsos de Banco Falabella, Ripley y CGE ya circularon en Chile. La próxima marca puede ser cualquiera.</p>
+    <p class="note" style="color:var(--night-muted);margin-top:10px"><a href="https://forbes.cl/tecnologia/2025-12-29/gobierno-banca-y-retail-concentran-mas-del-60-de-los-ciberataques-en-chile/" target="_blank" rel="noopener">Forbes Chile, segundo semestre de 2025</a></p>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- GAME -->
+  <section id="prueba" class="block" aria-labelledby="t-prueba">
+    <p class="kicker">La prueba</p>
+    <h2 id="t-prueba">¿Cuál de los dos es el clon?</h2>
+    <div class="game-wrap">
+      <div>
+        <p class="lead" style="margin-top:0">Así ve un cliente el login de su banco. Uno es real y el otro roba la clave. Toca el que creas falso.</p>
+        <p class="note">Ejemplo ficticio.</p>
+        <div class="verdict" id="verdict" role="status" aria-live="polite"></div>
+      </div>
+      <div class="choices">
+        <button class="site" data-site="a">
+          <div class="site-bar"><span class="lock" aria-hidden="true"></span><span>bancoandino.cl/ingreso</span></div>
+          <div class="site-body"><div class="bank">Banco Andino</div><div class="field"></div><div class="field"></div><div class="btn-fake"></div></div>
+        </button>
+        <button class="site" data-site="b">
+          <div class="site-bar"><span class="lock" aria-hidden="true"></span><span>bancoandlno.cl/ingreso</span></div>
+          <div class="site-body"><div class="bank">Banco Andino</div><div class="field"></div><div class="field"></div><div class="btn-fake"></div></div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGINE -->
+  <section id="motor" class="block" aria-labelledby="t-motor">
+    <p class="kicker">Cómo funciona</p>
+    <h2 id="t-motor">Un motor. Tres amenazas. Cinco pasos.</h2>
+    <p class="lead">Elige una amenaza y recorre lo que hacemos por el cliente.</p>
+    <div class="engine">
+      <div class="threats" role="group" aria-label="Amenazas">
+        <button class="threat" data-threat="sitio" aria-pressed="true"><strong>Sitio web clonado</strong><span>Una copia del login de un banco o tienda</span></button>
+        <button class="threat" data-threat="rostro" aria-pressed="false"><strong>Rostro o voz falsa</strong><span>Un video de un gerente o influencer que nunca grabó</span></button>
+        <button class="threat" data-threat="candidato" aria-pressed="false"><strong>Candidato falso</strong><span>Alguien que se hace pasar por otra persona en una entrevista</span></button>
+      </div>
+      <div>
+        <ol class="steps" id="steps"></ol>
+        <div class="engine-actions">
+          <button class="btn-red" id="play">Recorrer los pasos</button>
+          <span class="note" id="play-note"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYERS -->
+  <section id="clientes" class="block" aria-labelledby="t-clientes">
+    <p class="kicker">Quién paga</p>
+    <h2 id="t-clientes">Cinco clientes. Un mismo miedo.</h2>
+    <p class="lead">Afuera, Loti cobra USD 2.500 al mes por proteger a una sola persona, y Guardio tiene más de un millón de clientes pagando.</p>
+    <div class="payers">
+      <div class="payer"><h3>Fintech, retail y cooperativas</h3><p>Sitios y perfiles falsos que roban claves y pagos.</p><div class="how">Plan mensual</div></div>
+      <div class="payer"><h3>Ejecutivos e influencers</h3><p>Videos y voces falsas que usan su imagen para estafar.</p><div class="how">Plan mensual</div></div>
+      <div class="payer"><h3>Agencias de staffing</h3><p>Demostrar a clientes extranjeros que sus candidatos son reales.</p><div class="how">Pago por verificación</div></div>
+      <div class="payer"><h3>Aseguradoras</h3><p>Coalition ya paga forense, bajas y crisis cuando un asegurado sufre un deepfake.</p><div class="how">Pago por incidente</div></div>
+      <div class="payer"><h3>Plataformas obligadas por ley</h3><p>Deben bajar contenido falso en horas y no tienen equipo 24/7.</p><div class="how">Bajas tercerizadas</div></div>
+    </div>
+  </section>
+
+  <!-- SIMULATOR -->
+  <section id="simulador" class="block" aria-labelledby="t-sim">
+    <p class="kicker">El simulador</p>
+    <h2 id="t-sim">¿Cuántos clientes hacen falta?</h2>
+    <p class="lead">Mueve los controles. Los precios son supuestos para validar con clientes, no datos de mercado.</p>
+    <div class="sim">
+      <div class="sliders" id="sliders"></div>
+      <div class="result" aria-live="polite">
+        <div class="label">Ingreso anual estimado</div>
+        <div class="big" id="rev">$0</div>
+        <div class="sub" id="rev-month">$0 al mes</div>
+        <div class="bar" role="img" id="bar-label"><div class="bar-fill" id="bar"></div></div>
+        <div class="bar-ticks"><span>$0</span><span>Costo del primer año: $37–79 millones</span></div>
+        <div class="msg" id="msg"></div>
+        <div class="fine">Costos del primer año sin sueldos de fundadores, según la estimación del estudio.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETITION -->
+  <section id="competencia" class="block" aria-labelledby="t-comp">
+    <p class="kicker">La competencia</p>
+    <h2 id="t-comp">Los líderes están lejos y hablan inglés.</h2>
+    <p class="lead">Quienes ya están en Chile protegen el login y el pago. Nadie se encarga de lo que circula afuera.</p>
+    <div class="filters" role="group" aria-label="Filtrar competidores">
+      <button class="chip" data-filter="all" aria-pressed="true">Todos</button>
+      <button class="chip" data-filter="latam" aria-pressed="false">Con presencia en Latinoamérica</button>
+      <button class="chip" data-filter="abroad" aria-pressed="false">Solo extranjeros</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Competidor</th><th>Qué ofrece</th><th>A quién vende</th><th>Capital levantado</th><th>En Latinoamérica</th></tr></thead>
+        <tbody id="comp-body"></tbody>
+      </table>
+    </div>
+    <p class="pull">El espacio libre: bajar suplantaciones en español, rápido y a precio de empresa mediana.</p>
+  </section>
+
+  <!-- LAWS -->
+  <section id="leyes" class="block" aria-labelledby="t-leyes">
+    <p class="kicker">Las leyes</p>
+    <h2 id="t-leyes">El reloj ya corre en horas.</h2>
+    <p class="lead">Cuando responder rápido sea obligatorio, alguien tendrá que hacerlo por las empresas.</p>
+    <div class="laws" id="laws"></div>
+  </section>
+
+  <!-- INVESTMENT -->
+  <section id="inversion" class="block" aria-labelledby="t-inv">
+    <p class="kicker">La inversión</p>
+    <h2 id="t-inv">Ellos levantaron millones de dólares. Aquí se parte con pesos.</h2>
+    <p class="lead">Los líderes extranjeros financiaron tecnología propia. Nosotros operamos sobre tecnología que ya existe.</p>
+    <div class="funding">
+      <div class="costs">
+        <h3>Costos del primer año (estimación)</h3>
+        <ul>
+          <li><span>Analista de operaciones y bajas</span><span>$15–22 M</span></li>
+          <li><span>Infraestructura y herramientas</span><span>$6–18 M</span></li>
+          <li><span>Prototipo del panel y rastreador</span><span>$10–25 M</span></li>
+          <li><span>Legal y marca</span><span>$3–6 M</span></li>
+          <li><span>Ventas y marketing</span><span>$3–8 M</span></li>
+          <li class="total"><span>Total</span><span>$37–79 M</span></li>
+        </ul>
+      </div>
+      <div class="sources">
+        <h3>Sin ceder participación</h3>
+        <div class="source"><input type="checkbox" id="f1" data-amount="15000000" checked><label for="f1"><strong>Corfo Semilla Inicia</strong>Hasta $15 millones, 75% del proyecto</label></div>
+        <div class="source"><input type="checkbox" id="f2" data-amount="15000000" checked><label for="f2"><strong>Start-Up Chile Build</strong>$15 millones más preaceleración</label></div>
+        <div class="source"><input type="checkbox" id="f3" data-amount="3500000"><label for="f3"><strong>Sercotec Capital Semilla Emprende</strong>Alrededor de $3,5 millones</label></div>
+        <div class="covered" id="covered" aria-live="polite"></div>
+        <p class="note" style="margin-top:10px">Montos de las convocatorias 2026; las fechas abren y cierran durante el año.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section id="pasos" class="block" aria-labelledby="t-pasos">
+    <p class="kicker">Próximos pasos</p>
+    <h2 id="t-pasos">Lo que hay que validar ahora.</h2>
+    <p class="lead">Tu avance se guarda en este navegador.</p>
+    <ul class="checklist" id="checklist"></ul>
+    <div class="progress" id="progress"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot">
+    <div class="brand">CLONADOS</div>
+    <h3>Fuentes</h3>
+    <ul>
+      <li><a href="https://sumsub.com/blog/guides-reports/fraude-de-identidad-en-latinoamerica-2025-2026/" target="_blank" rel="noopener">Sumsub: fraude de identidad en Latinoamérica 2025-2026</a></li>
+      <li><a href="https://forbes.cl/tecnologia/2025-12-29/gobierno-banca-y-retail-concentran-mas-del-60-de-los-ciberataques-en-chile/" target="_blank" rel="noopener">Forbes Chile: ciberataques en Chile</a></li>
+      <li><a href="https://www.realitydefender.com/insights/bny-samsung-next-and-fusion-fund-invest-in-reality-defender" target="_blank" rel="noopener">Reality Defender: frecuencia de intentos de deepfake</a></li>
+      <li><a href="https://westernverify.com/resources/blog/the-candidate-isnt-real-ai-fake-applicants-have-arrived-and-small-employers-are-not-exempt" target="_blank" rel="noopener">Western Verify: candidatos falsos</a></li>
+      <li><a href="https://dealroom.co/news/148644-guardio-hits-1-1b-valuation-in-40m-round-backed-by-wiz-founder-assaf-rap/" target="_blank" rel="noopener">Dealroom: ronda de Guardio</a></li>
+      <li><a href="https://www.cbinsights.com/company/memcyco/financials" target="_blank" rel="noopener">CB Insights: Memcyco</a></li>
+      <li><a href="https://www.yahoo.com/news/inside-ai-ground-war-against-131500369.html" target="_blank" rel="noopener">Yahoo: precios de Loti</a></li>
+      <li><a href="https://www.iamagazine.com/2026/02/27/coalition-adds-deepfake-response-endorsement/" target="_blank" rel="noopener">IA Magazine: cobertura de Coalition</a></li>
+      <li><a href="https://www.ftc.gov/news-events/news/press-releases/2026/05/ftc-begins-enforcing-take-it-down-act" target="_blank" rel="noopener">FTC: TAKE IT DOWN Act</a></li>
+      <li><a href="https://www.hoganlovells.com/en/publications/india-introduces-mandatory-labelling-for-ai-and-3hour-takedown-for-illegal-content" target="_blank" rel="noopener">Hogan Lovells: reglas de India</a></li>
+      <li><a href="https://www.df.cl/df-lab/tech-empresas/proyecto-de-ley-para-proteger-la-identidad-digital-de-las-personas" target="_blank" rel="noopener">Diario Financiero: proyecto de deepfakes en Chile</a></li>
+      <li><a href="https://ecosistemastartup.com/?p=63979" target="_blank" rel="noopener">Ecosistema Startup: Corfo Semilla Inicia</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fmt = new Intl.NumberFormat('es-CL');
+
+  // Navigation
+  var sections = ['portada','cifras','prueba','motor','clientes','simulador','competencia','leyes','inversion','pasos'];
+  function go(id) { var el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+  document.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { go(b.getAttribute('data-go')); }); });
+  var navButtons = document.querySelectorAll('.nav button');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) navButtons.forEach(function (b) { b.setAttribute('aria-current', b.getAttribute('data-go') === e.target.id ? 'true' : 'false'); });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
+  var initial = (location.hash || '').replace('#', '');
+  if (sections.indexOf(initial) > -1) setTimeout(function () { go(initial); }, 50);
+
+  // The one orchestrated moment: figures count up when they enter the screen
+  function render(el, v) {
+    var f = el.getAttribute('data-format'), p = el.getAttribute('data-prefix') || '', s = el.getAttribute('data-suffix') || '';
+    var txt = f === 'dec' ? v.toFixed(1).replace('.', ',') : fmt.format(Math.round(v));
+    el.textContent = p + txt + s;
+  }
+  var nums = document.querySelectorAll('.figure .num');
+  if (!reduce && 'IntersectionObserver' in window) {
+    nums.forEach(function (el) { render(el, 0); });
+    var seen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        seen.unobserve(e.target);
+        var el = e.target, target = Number(el.getAttribute('data-count')), start = null, dur = 1400;
+        function tick(t) {
+          if (start === null) start = t;
+          var k = Math.min(1, (t - start) / dur);
+          var eased = 1 - Math.pow(1 - k, 3);
+          render(el, target * eased);
+          if (k < 1) requestAnimationFrame(tick); else render(el, target);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.4 });
+    nums.forEach(function (el) { seen.observe(el); });
+  }
+
+  // Spot-the-fake game
+  var verdict = document.getElementById('verdict');
+  var sites = document.querySelectorAll('.site');
+  var clues = '<ul><li>El dominio dice “andlno”: una <b>l</b> reemplaza a la <b>i</b>.</li><li>El dominio se registró hace dos días y el certificado de seguridad se emitió hoy.</li><li>El formulario envía la clave a un servidor que no es del banco.</li></ul>';
+  sites.forEach(function (s) {
+    s.addEventListener('click', function () {
+      var picked = s.getAttribute('data-site');
+      sites.forEach(function (x) { x.removeAttribute('data-state'); });
+      document.querySelector('[data-site="b"]').setAttribute('data-state', 'right');
+      if (picked === 'b') {
+        verdict.innerHTML = '<strong>Lo encontraste. Tus clientes no lo harán.</strong>Lo viste porque estabas buscando. Un cliente apurado no busca. Estas son las señales que el motor revisa por ellos:' + clues + '<button class="reset" id="again">Volver a intentar</button>';
+      } else {
+        s.setAttribute('data-state', 'wrong');
+        verdict.innerHTML = '<strong>Caíste. Ese es el original.</strong>El clon es el otro, y a simple vista son idénticos. Así le roban la clave a tus clientes. Las señales que el motor detecta:' + clues + '<button class="reset" id="again">Volver a intentar</button>';
+      }
+      verdict.className = 'verdict show';
+      document.getElementById('again').addEventListener('click', function () {
+        verdict.className = 'verdict'; verdict.innerHTML = '';
+        sites.forEach(function (x) { x.removeAttribute('data-state'); });
+      });
+    });
+  });
+
+  // Engine
+  var flows = {
+    sitio: [
+      ['Vigilar', 'Rastreamos dominios nuevos parecidos al del cliente y certificados recién emitidos, y revisamos plataformas que crean sitios con IA.'],
+      ['Verificar', 'Comparamos la captura del sitio sospechoso con el original: logo, colores y formularios de login o pago. Una persona confirma.'],
+      ['Avisar', 'El cliente recibe una alerta por correo o WhatsApp con la captura, el dominio y la evidencia.'],
+      ['Bajar', 'Denunciamos ante el hosting, el registrador, Google Safe Browsing y, si es .cl, ante NIC Chile.'],
+      ['Reportar', 'Informe mensual: clones detectados, tiempo de baja y evidencia para denuncias o seguros.']
+    ],
+    rostro: [
+      ['Vigilar', 'Buscamos en redes sociales y sitios de video contenido que use la cara o la voz de la persona protegida.'],
+      ['Verificar', 'Analizamos el video o audio con herramientas de detección de deepfakes y lo confirma una persona.'],
+      ['Avisar', 'La persona o su agencia recibe la alerta con el enlace, capturas y nivel de difusión.'],
+      ['Bajar', 'Solicitamos la baja a cada red social y plataforma, y preparamos la denuncia si hay estafa.'],
+      ['Reportar', 'Informe mensual de suplantaciones encontradas, bajadas y pendientes.']
+    ],
+    candidato: [
+      ['Vigilar', 'Antes de la entrevista, revisamos que la identidad, el perfil profesional y los documentos coincidan.'],
+      ['Verificar', 'Durante la videollamada, comprobamos que la persona sea real y la misma de los documentos.'],
+      ['Avisar', 'La agencia recibe un informe de verificación o una alerta de posible suplantación.'],
+      ['Bajar', 'Si hay fraude, se detiene el proceso y se entrega la evidencia a la agencia o a su cliente.'],
+      ['Reportar', 'Certificado de candidato verificado que la agencia puede mostrar a su cliente en el extranjero.']
+    ]
+  };
+  var stepsEl = document.getElementById('steps'), current = 'sitio', timer = null;
+  function renderSteps(active) {
+    stepsEl.innerHTML = flows[current].map(function (s, i) {
+      return '<li class="step' + (i === active ? ' active' : '') + '"><span class="n" aria-hidden="true">' + (i + 1) + '</span><div><h3>' + s[0] + '</h3><p>' + s[1] + '</p></div></li>';
+    }).join('');
+  }
+  renderSteps(-1);
+  var playBtn = document.getElementById('play'), playNote = document.getElementById('play-note');
+  function stop() { if (timer) { clearInterval(timer); timer = null; } playBtn.textContent = 'Recorrer los pasos'; playNote.textContent = ''; }
+  document.querySelectorAll('.threat').forEach(function (t) {
+    t.addEventListener('click', function () {
+      document.querySelectorAll('.threat').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      t.setAttribute('aria-pressed', 'true');
+      current = t.getAttribute('data-threat'); stop(); renderSteps(-1);
+    });
+  });
+  playBtn.addEventListener('click', function () {
+    if (timer) { stop(); renderSteps(-1); return; }
+    var i = 0; renderSteps(0); playBtn.textContent = 'Detener'; playNote.textContent = 'Paso 1 de 5';
+    timer = setInterval(function () {
+      i++;
+      if (i >= 5) { stop(); renderSteps(4); playNote.textContent = 'Clon bajado y reportado.'; return; }
+      renderSteps(i); playNote.textContent = 'Paso ' + (i + 1) + ' de 5';
+    }, 1600);
+  });
+
+  // Simulator
+  function clp(n) { return '$' + fmt.format(Math.round(n)); }
+  function millions(n) { return '$' + fmt.format(Math.round(n / 1e6)) + ' millones'; }
+  var inputs = [
+    { id: 'emp', label: 'Empresas con plan mensual', min: 0, max: 300, step: 1, value: 15, price: 400000, unit: 'empresas', mult: 12, priceText: '$400.000 al mes cada una' },
+    { id: 'per', label: 'Personas públicas protegidas', min: 0, max: 400, step: 5, value: 10, price: 250000, unit: 'personas', mult: 12, priceText: '$250.000 al mes cada una' },
+    { id: 'can', label: 'Verificaciones de candidatos al mes', min: 0, max: 2000, step: 10, value: 50, price: 15000, unit: 'al mes', mult: 12, priceText: '$15.000 por verificación' },
+    { id: 'inc', label: 'Incidentes de aseguradoras al año', min: 0, max: 200, step: 1, value: 5, price: 2000000, unit: 'al año', mult: 1, priceText: '$2.000.000 por incidente' }
+  ];
+  document.getElementById('sliders').innerHTML = inputs.map(function (x) {
+    return '<div class="slider"><div class="slider-head"><label for="' + x.id + '">' + x.label + '</label><output id="' + x.id + '-out" for="' + x.id + '">' + x.value + ' ' + x.unit + '</output></div>' +
+      '<input type="range" id="' + x.id + '" min="' + x.min + '" max="' + x.max + '" step="' + x.step + '" value="' + x.value + '">' +
+      '<div class="price">Precio supuesto: ' + x.priceText + '</div></div>';
+  }).join('');
+  var COST_MIN = 37e6, COST_MAX = 79e6, SCALE = 160e6;
+  function compute() {
+    var total = 0;
+    inputs.forEach(function (x) {
+      var v = Number(document.getElementById(x.id).value);
+      document.getElementById(x.id + '-out').textContent = fmt.format(v) + ' ' + x.unit;
+      total += v * x.price * x.mult;
+    });
+    document.getElementById('rev').textContent = total >= 1e6 ? millions(total) : clp(total);
+    document.getElementById('rev-month').textContent = clp(total / 12) + ' al mes';
+    document.getElementById('bar').style.width = Math.min(100, total / SCALE * 100) + '%';
+    document.getElementById('bar-label').setAttribute('aria-label', 'Ingreso anual ' + millions(total) + ' frente a un costo de 37 a 79 millones');
+    var msg;
+    if (total >= COST_MAX) msg = 'Cubre incluso el costo alto del primer año, con ' + millions(total - COST_MAX) + ' de margen.';
+    else if (total >= COST_MIN) msg = 'Cubre el costo bajo. Faltan ' + millions(COST_MAX - total) + ' para cubrir el alto.';
+    else msg = 'Faltan ' + millions(COST_MIN - total) + ' para cubrir el costo mínimo del primer año. Los subsidios pueden cubrir la diferencia mientras creces.';
+    document.getElementById('msg').textContent = msg;
+  }
+  inputs.forEach(function (x) { document.getElementById(x.id).addEventListener('input', compute); });
+  compute();
+
+  // Competitors
+  var comps = [
+    { n: 'Guardio', w: 'Protege a personas contra estafas; revisa cada sitio creado en Lovable', to: 'Personas y plataformas', cap: 'USD 167 M', latam: false },
+    { n: 'Memcyco', w: 'Detecta sitios suplantados en tiempo real y alerta al usuario', to: 'Banca y e-commerce grandes', cap: 'USD 47 M', latam: false },
+    { n: 'Loti', w: 'Detecta y baja contenido con el rostro o la voz de una persona', to: 'Celebridades y ejecutivos', cap: 'USD 23 M', latam: false },
+    { n: 'BrandShield', w: 'Detecta y baja sitios y perfiles que suplantan marcas', to: 'Marcas globales', cap: 'Sin dato', latam: false },
+    { n: 'Pindrop', w: 'Detecta voces falsas en centros de llamadas', to: 'Call centers y bancos', cap: 'USD 100 M en una ronda', latam: false },
+    { n: 'Reality Defender', w: 'Detecta deepfakes en audio, video, imagen y texto', to: 'Bancos, gobiernos, RR.HH.', cap: 'Serie A USD 33 M', latam: false },
+    { n: 'Sumsub', w: 'Verificación de identidad al abrir cuentas', to: 'Bancos y fintech', cap: 'Sin dato', latam: true },
+    { n: 'IronVest', w: 'Prevención de fraude bancario; apunta a bancos chilenos', to: 'Bancos', cap: 'Sin dato', latam: true },
+    { n: 'Canarytokens', w: 'Alerta gratuita cuando un sitio se clona; no baja nada', to: 'Cualquiera', cap: 'Gratis', latam: false }
+  ];
+  var compBody = document.getElementById('comp-body');
+  function renderComps(filter) {
+    compBody.innerHTML = comps.filter(function (c) { return filter === 'all' || (filter === 'latam' ? c.latam : !c.latam); }).map(function (c) {
+      return '<tr><td class="name">' + c.n + '</td><td>' + c.w + '</td><td>' + c.to + '</td><td class="cap">' + c.cap + '</td><td>' + (c.latam ? '<span class="tag yes">Sí</span>' : '<span class="tag no">No encontrada</span>') + '</td></tr>';
+    }).join('');
+  }
+  renderComps('all');
+  document.querySelectorAll('[data-filter]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('[data-filter]').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true'); renderComps(b.getAttribute('data-filter'));
+    });
+  });
+
+  // Laws
+  var laws = [
+    { where: 'India', what: 'Reforma de las IT Rules: etiquetar contenido sintético y bajarlo ante órdenes oficiales.', hours: '3 horas', status: 'Vigente desde febrero de 2026' },
+    { where: 'Estados Unidos', what: 'TAKE IT DOWN Act: bajar contenido íntimo falso y sus copias; multas de hasta USD 53.088 por infracción.', hours: '48 horas', status: 'Exigible desde mayo de 2026' },
+    { where: 'Unión Europea', what: 'AI Act, artículo 50: marcar el contenido generado y declarar los deepfakes.', hours: 'Etiquetar', status: 'Vigente desde agosto de 2026' },
+    { where: 'Chile', what: 'Proyecto de deepfakes: multas de hasta ~USD 760.000, representante legal de plataformas y canal de denuncias.', hours: 'En camino', status: 'Aprobado en general en julio de 2026' },
+    { where: 'Dinamarca', what: 'Proyecto L 49: prohibir imitaciones realistas de una persona sin su consentimiento.', hours: 'En camino', status: 'Presentado en octubre de 2026' }
+  ];
+  document.getElementById('laws').innerHTML = laws.map(function (l) {
+    return '<div class="law"><div class="where">' + l.where + '<span class="status">' + l.status + '</span></div><p>' + l.what + '</p><div class="hours">' + l.hours + '</div></div>';
+  }).join('');
+
+  // Funding
+  function funding() {
+    var sum = 0;
+    document.querySelectorAll('.source input').forEach(function (i) { if (i.checked) sum += Number(i.getAttribute('data-amount')); });
+    var lowPct = Math.min(100, Math.round(sum / COST_MIN * 100)), highPct = Math.min(100, Math.round(sum / COST_MAX * 100));
+    document.getElementById('covered').innerHTML = '<b>' + clp(sum) + '</b>sin ceder participación. Cubre el ' + lowPct + '% del costo bajo y el ' + highPct + '% del costo alto del primer año.';
+  }
+  document.querySelectorAll('.source input').forEach(function (i) { i.addEventListener('change', funding); });
+  funding();
+
+  // Checklist
+  var tasks = [
+    'Escanear gratis a 50 fintech, cooperativas y tiendas chilenas buscando sitios clonados',
+    'Enviar los hallazgos con evidencia y medir cuántas empresas aceptan una reunión',
+    'Entrevistar a 10–15 responsables de fraude o seguridad para validar precios',
+    'Hacer 2–3 bajas manuales para medir tiempos reales de hostings, redes y NIC Chile',
+    'Preguntar a corredores si alguna aseguradora en Chile cubre respuesta a deepfakes',
+    'Revisar fechas vigentes de Corfo Semilla Inicia y Start-Up Chile Build',
+    'Buscar el nombre en INAPI y registrar la marca'
+  ];
+  var KEY = 'anti-suplantacion-pasos', saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  var list = document.getElementById('checklist');
+  list.innerHTML = tasks.map(function (t, i) { return '<li><input type="checkbox" id="t' + i + '"' + (saved[i] ? ' checked' : '') + '><label for="t' + i + '">' + t + '</label></li>'; }).join('');
+  function progress() { document.getElementById('progress').textContent = list.querySelectorAll('input:checked').length + ' de ' + tasks.length + ' pasos completados'; }
+  list.querySelectorAll('input').forEach(function (cb, i) {
+    cb.addEventListener('change', function () { saved[i] = cb.checked; try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {} progress(); });
+  });
+  progress();
+})();
+</script>
+</body>
+</html>
